@@ -39,6 +39,25 @@ namespace lab7.Views
             {
                 Close();
             };
+            
+        }
+
+        void CheckValid(object sender, DataGridCellEditEndingEventArgs args)
+        {
+            var s = (args.EditingElement as TextBox).Text;
+            try
+            {
+                int t = int.Parse(s);
+                if (!(t == 0 || t == 1 || t == 2)) args.Cancel = true;
+            } catch(System.FormatException e)
+            {
+                args.Cancel = true;
+            }
+        }
+        void CalcAverage(object sender, DataGridCellEditEndedEventArgs args)
+        {
+            var context = (this.DataContext as MainWindowViewModel);
+            context.CalckAverage();
         }
     }
 }

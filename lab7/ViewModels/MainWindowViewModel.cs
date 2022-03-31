@@ -16,6 +16,14 @@ namespace lab7.ViewModels
         public MainWindowViewModel()
         {
             items = new ObservableCollection<Student>();
+            averageStud = new ObservableCollection<Student>() { new Student("Средний балл")};
+        }
+
+        ObservableCollection<Student> averageStud;
+        public ObservableCollection<Student> AverageStud
+        {
+            get => averageStud;
+            set => this.RaiseAndSetIfChanged(ref averageStud, value);
         }
 
         ObservableCollection<Student> items;
@@ -28,6 +36,7 @@ namespace lab7.ViewModels
         public void AddStudent()
         {
             Items.Add(new Student("ФИО"));
+            CalckAverage();
         }
 
         public void DeleteChecked()
@@ -39,6 +48,7 @@ namespace lab7.ViewModels
                     nwItems.Add(stud);
             }
             Items = nwItems;
+            CalckAverage();
         }
 
         public void SaveFile(string path)
@@ -80,8 +90,21 @@ namespace lab7.ViewModels
                         for (int i = 0; i < 4; i++) student.Grades[i].Val = grades[i];
                         Items.Add(student);
                     }
+                    CalckAverage();
                 }
             }
+        }
+        public void CalckAverage()
+        {
+            List<float> grad = new List<float>() { 0, 0, 0, 0 };
+            foreach(var stud in items)
+            {
+                for (int i = 0; i < stud.Grades.Count; i++) grad[i] += int.Parse(stud.Grades[i].Val);
+            }
+            for (int i = 0; i < 4; i++) {
+                AverageStud[0].Grades[i].Val= (grad[i] / items.Count).ToString();
+            }
+
         }
 
     }

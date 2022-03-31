@@ -6,7 +6,7 @@
         xmlns:model="clr-namespace:lab7.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         Height="500"
-        Width="800"
+        Width="900"
         x:Class="lab7.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="lab7">
@@ -27,12 +27,12 @@
     </Menu>
 
     <StackPanel>
-      <DataGrid Height="400" Name="MyDataGrid" Items="{Binding Items}">
+      <DataGrid CellEditEnded="CalcAverage" CellEditEnding="CheckValid" Name="MainDataGrid" Height="300" Items="{Binding Items}">
         <DataGrid.Columns>
 
 
-          <DataGridTextColumn Width="300" Header="ФИО" Binding="{Binding Name}"/>
-          <DataGridTemplateColumn Header="СГМА" SortMemberPath="Grades[0].Val">
+          <DataGridTextColumn Width="400" Header="ФИО" Binding="{Binding Name}"/>
+          <DataGridTemplateColumn Header="СГМА" SortMemberPath="Grades[0].Val" Width="90" >
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate DataType="model:Student">
                 <TextBlock Background="{Binding Grades[0].Color}" Text="{Binding Grades[0].Val}"
@@ -48,7 +48,7 @@
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
           
-          <DataGridTemplateColumn Header="ВПиЧМВ" SortMemberPath="Grades[1].Val">
+          <DataGridTemplateColumn Header="ВПиЧМВ" SortMemberPath="Grades[1].Val" Width="90" >
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate DataType="model:Student">
                 <TextBlock Background="{Binding Grades[1].Color}" Text="{Binding Grades[1].Val}"
@@ -57,16 +57,16 @@
             </DataGridTemplateColumn.CellTemplate>
 
             <DataGridTemplateColumn.CellEditingTemplate>
-              <DataTemplate DataType="model:Student">
+              <DataTemplate DataType="model:Student" >
                 <TextBox Text="{Binding Grades[1].Val}" VerticalAlignment="Center"
                 HorizontalAlignment="Center" />
               </DataTemplate>
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
 
-          <DataGridTemplateColumn Header="ЭЭС" SortMemberPath="Grades[2].Val">
+          <DataGridTemplateColumn Header="ЭЭС" SortMemberPath="Grades[2].Val" Width="90" >
             <DataGridTemplateColumn.CellTemplate>
-              <DataTemplate DataType="model:Student">
+              <DataTemplate DataType="model:Student" >
                 <TextBlock Background="{Binding Grades[2].Color}" Text="{Binding Grades[2].Val}"
                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
               </DataTemplate>
@@ -80,7 +80,7 @@
             </DataGridTemplateColumn.CellEditingTemplate>
           </DataGridTemplateColumn>
 
-          <DataGridTemplateColumn Header="СиАОД" SortMemberPath="Grades[3].Val">
+          <DataGridTemplateColumn Header="СиАОД" SortMemberPath="Grades[3].Val" Width="90" >
             <DataGridTemplateColumn.CellTemplate>
               <DataTemplate DataType="model:Student">
                 <TextBlock Background="{Binding Grades[3].Color}" Text="{Binding Grades[3].Val}"
@@ -97,9 +97,9 @@
           </DataGridTemplateColumn>
           
           
-          <DataGridTemplateColumn Header="Средняя">
+          <DataGridTemplateColumn Header="Средняя" Width="90">
             <DataGridTemplateColumn.CellTemplate>
-              <DataTemplate DataType="model:Student">
+              <DataTemplate DataType="model:Student" >
                 <TextBlock Background="{Binding Color}" Text="{Binding AverageGrade}"
                 VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
               </DataTemplate>
@@ -109,6 +109,48 @@
         </DataGrid.Columns>
 
       </DataGrid>
+
+      <DataGrid HeadersVisibility="None" Items="{Binding AverageStud}">
+        <DataGrid.Columns>
+          <DataGridTextColumn Width="400" Binding="{Binding Name}" />
+          <DataGridTemplateColumn Width="90">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate DataType="model:Student" >
+                <TextBlock Background="{Binding Grades[0].Color}" Text="{Binding Grades[0].Val}"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+          <DataGridTemplateColumn Width="90">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate DataType="model:Student" >
+                <TextBlock Background="{Binding Grades[1].Color}" Text="{Binding Grades[1].Val}"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+          <DataGridTemplateColumn Width="90">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate DataType="model:Student" >
+                <TextBlock Background="{Binding Grades[2].Color}" Text="{Binding Grades[2].Val}"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+
+          <DataGridTemplateColumn Width="90">
+            <DataGridTemplateColumn.CellTemplate>
+              <DataTemplate DataType="model:Student" >
+                <TextBlock Background="{Binding Grades[3].Color}" Text="{Binding Grades[3].Val}"
+                VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+              </DataTemplate>
+            </DataGridTemplateColumn.CellTemplate>
+          </DataGridTemplateColumn>
+        </DataGrid.Columns>
+      </DataGrid>
+      
       <Button Content="Добавить" Command="{Binding AddStudent}"/>
       <Button Content="Удалить всех выбранных" Command="{Binding DeleteChecked}"/>
     </StackPanel>

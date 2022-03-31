@@ -55,7 +55,7 @@ namespace lab7.Models
             if (res < 1) Color = Brushes.Red;
             else if (res < 1.5) Color = Brushes.Yellow;
             else Color = Brushes.Green;
-            AverageGrade = res.ToString();
+            AverageGrade = res.ToString("0.00");
         }
         public Student() {
             name = "";

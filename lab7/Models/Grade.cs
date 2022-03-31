@@ -38,15 +38,16 @@ namespace lab7.Models
             {
                 try
                 {
-                    int val = int.Parse(value);
-                    if (val == 0) Color = Brushes.Red;
-                    else if (val == 1) Color = Brushes.Yellow;
+                    float val = float.Parse(value);
+                    if (val < 1 ) Color = Brushes.Red;
+                    else if (val <1.5) Color = Brushes.Yellow;
                     else Color = Brushes.Green;
                     if (val < 0 || val > 2)
                     {
                         value = "#ERROR";
                         Color = Brushes.White;
                     }
+                    value = $"{val:0.##}";
                 } catch(FormatException e)
                 {
                     value = "#ERROR";
